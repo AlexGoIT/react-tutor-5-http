@@ -6,7 +6,13 @@ const ImageList = ({ hits }) => {
     <ImageContainer>
       {hits.map(({ id, webformatURL, tags, largeImageURL, previewURL }) => (
         <ImageItem key={id}>
-          <a href={largeImageURL}>
+          <a
+            href={largeImageURL}
+            onClick={(e) => {
+              e.preventDefault();
+              handleClick(e);
+            }}
+          >
             <img src={webformatURL} alt={tags} loading="lazy" />
           </a>
         </ImageItem>
@@ -16,6 +22,10 @@ const ImageList = ({ hits }) => {
 };
 
 export default ImageList;
+
+const handleClick = (e) => {
+  console.log(e.target.src);
+};
 
 ImageList.propTypes = {
   hits: PropTypes.arrayOf(
