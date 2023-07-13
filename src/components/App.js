@@ -1,17 +1,15 @@
-import axios from "axios";
 import { Component } from "react";
 import "./App.css";
 
-import ArticleList from "./ArticleList";
-import fetchArticlesWithQuery from "../services/api";
-
-import { FcLike } from "react-icons/fc";
-
-axios.defaults.baseURL = "https://hn.algolia.com/api/v1";
+// import ArticleList from "./ArticleList";
+import ImageList from "./ImageList";
+import ImageAPI from "../services/api";
 
 export default class App extends Component {
+  imageAPI = new ImageAPI();
+
   state = {
-    articles: [],
+    hits: [],
     isLoading: false,
     error: null,
   };
@@ -20,8 +18,8 @@ export default class App extends Component {
     this.setState({ isLoading: true });
 
     try {
-      const articles = await fetchArticlesWithQuery("react");
-      this.setState({ articles });
+      const images = await this.imageAPI.fetchImages();
+      this.setState({ hits: images.hits });
     } catch (error) {
       this.setState({ error });
     } finally {
@@ -30,18 +28,13 @@ export default class App extends Component {
   }
 
   render() {
-    const { articles, isLoading, error } = this.state;
+    const { hits, isLoading, error } = this.state;
 
     return (
       <div>
         {error && <p>Whoops, something went wrong: {error.message}</p>}
-        {isLoading && (
-          <p>
-            Loading...
-            <FcLike />
-          </p>
-        )}
-        {articles.length > 0 && <ArticleList articles={articles} />}
+        {isLoading && <p>Loading...</p>}
+        {hits.length > 0 && <ImageList hits={hits} />}
       </div>
     );
   }
