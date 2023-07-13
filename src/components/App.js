@@ -5,6 +5,8 @@ import "./App.css";
 import ArticleList from "./ArticleList";
 import fetchArticlesWithQuery from "../services/api";
 
+import { FcLike } from "react-icons/fc";
+
 axios.defaults.baseURL = "https://hn.algolia.com/api/v1";
 
 export default class App extends Component {
@@ -33,7 +35,12 @@ export default class App extends Component {
     return (
       <div>
         {error && <p>Whoops, something went wrong: {error.message}</p>}
-        {isLoading && <p>Loading...</p>}
+        {isLoading && (
+          <p>
+            Loading...
+            <FcLike />
+          </p>
+        )}
         {articles.length > 0 && <ArticleList articles={articles} />}
       </div>
     );
