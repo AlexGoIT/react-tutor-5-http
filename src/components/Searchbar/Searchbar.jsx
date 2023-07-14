@@ -17,7 +17,7 @@ export default class Searchbar extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state.searchQuery);
+    this.props.onSubmit(this.state.searchQuery.toLowerCase().trim());
 
     this.setState({ searchQuery: "" });
   };

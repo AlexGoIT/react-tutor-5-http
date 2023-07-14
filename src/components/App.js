@@ -17,7 +17,6 @@ export default class App extends Component {
     totalHits: 0,
     isLoading: false,
     error: null,
-    searchQuery: "",
   };
 
   async componentDidMount() {
@@ -25,10 +24,7 @@ export default class App extends Component {
 
     try {
       const images = await this.imageAPI.fetchImages();
-
       const { hits, total, totalHits } = images;
-
-      console.log(images);
 
       this.setState({ hits, total, totalHits });
     } catch (error) {
@@ -38,32 +34,19 @@ export default class App extends Component {
     }
   }
 
-  async componentDidUpdate(nextState) {
-    console.log(this.state.searchQuery, nextState.searchQuery);
+  handleSubmit = async (searchQuery) => {
+    this.setState({ isLoading: true });
+    try {
+      const images = await this.imageAPI.fetchImages(searchQuery);
+      const { hits, total, totalHits } = images;
 
-    // if (this.state.searchQuery === "") {
-    //   return;
-    // }
-
-    // console.log(this.state.searchQuery);
-
-    // this.setState({ isLoading: true });
-
-    //   try {
-    //     const images = await this.imageAPI.fetchImages(this.state.searchQuery);
-    //     this.setState({ hits: images.hits });
-    //   } catch (error) {
-    //     this.setState({ error });
-    //   } finally {
-    //     this.setState({ isLoading: false });
-    //   }
-    // }
-
-    // handleSubmit = (searchQuery) => {
-    //   this.setState({
-    //     searchQuery,
-    //   });
-  }
+      this.setState({ hits, total, totalHits });
+    } catch (error) {
+      this.setState({ error });
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  };
 
   render() {
     const { hits, isLoading, error } = this.state;
@@ -71,15 +54,7 @@ export default class App extends Component {
     return (
       <>
         {error && <p>Whoops, something went wrong: {error.message}</p>}
-        <Searchbar
-          onSubmit={(searchQuery) => {
-            if (this.state.searchQuery !== searchQuery) {
-              this.setState({
-                searchQuery,
-              });
-            }
-          }}
-        />
+        <Searchbar onSubmit={this.handleSubmit} />
         {hits.length > 0 && <ImageGallery hits={hits} />}
         <Button />
         {isLoading && <Loader />}
