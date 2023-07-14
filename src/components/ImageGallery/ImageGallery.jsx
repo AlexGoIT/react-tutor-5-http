@@ -1,12 +1,13 @@
-import { ImageContainer, ImageItem } from "./ImageList.styled";
 import PropTypes from "prop-types";
+import ImageGalleryItem from "./ImageGalleryItem";
+import { ImageContainer } from "./ImageGallery.styled";
 
 const ImageList = ({ hits }) => {
   return (
     <ImageContainer>
-      {hits.map(({ id, webformatURL, tags, largeImageURL, previewURL }) => (
-        <ImageItem key={id}>
-          <a
+      {hits.map((hit) => (
+        <ImageGalleryItem key={hit.id} hit={hit}>
+          {/* <a
             href={largeImageURL}
             onClick={(e) => {
               e.preventDefault();
@@ -14,8 +15,8 @@ const ImageList = ({ hits }) => {
             }}
           >
             <img src={webformatURL} alt={tags} loading="lazy" />
-          </a>
-        </ImageItem>
+          </a> */}
+        </ImageGalleryItem>
       ))}
     </ImageContainer>
   );
@@ -23,9 +24,9 @@ const ImageList = ({ hits }) => {
 
 export default ImageList;
 
-const handleClick = (e) => {
-  console.log(e.target.src);
-};
+// const handleClick = (e) => {
+//   console.log(e.target.src);
+// };
 
 ImageList.propTypes = {
   hits: PropTypes.arrayOf(

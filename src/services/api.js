@@ -25,7 +25,7 @@ export default class ImageAPI {
         image_type: "photo",
         orientation: "horizontal",
         safesearch: true,
-        per_page: 20,
+        per_page: 12,
         page: 1,
         timeout: 1000,
       },
