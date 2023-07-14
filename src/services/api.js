@@ -24,7 +24,7 @@ export default class ImageAPI {
         key: this.#KEY,
         image_type: "photo",
         orientation: "horizontal",
-        safesearch: true,
+        safesearch: false,
         per_page: 12,
         page: 1,
         timeout: 1000,
