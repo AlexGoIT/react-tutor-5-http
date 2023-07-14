@@ -6,17 +6,7 @@ const ImageList = ({ hits }) => {
   return (
     <ImageContainer>
       {hits.map((hit) => (
-        <ImageGalleryItem key={hit.id} hit={hit}>
-          {/* <a
-            href={largeImageURL}
-            onClick={(e) => {
-              e.preventDefault();
-              handleClick(e);
-            }}
-          >
-            <img src={webformatURL} alt={tags} loading="lazy" />
-          </a> */}
-        </ImageGalleryItem>
+        <ImageGalleryItem key={hit.id} hit={hit} onClick={handleClick} />
       ))}
     </ImageContainer>
   );
@@ -24,9 +14,9 @@ const ImageList = ({ hits }) => {
 
 export default ImageList;
 
-// const handleClick = (e) => {
-//   console.log(e.target.src);
-// };
+const handleClick = (e) => {
+  console.log(e.target.src);
+};
 
 ImageList.propTypes = {
   hits: PropTypes.arrayOf(

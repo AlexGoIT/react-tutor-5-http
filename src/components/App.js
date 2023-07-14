@@ -19,22 +19,11 @@ export default class App extends Component {
     error: null,
   };
 
-  async componentDidMount() {
-    this.setState({ isLoading: true });
-
-    try {
-      const images = await this.imageAPI.fetchImages();
-      const { hits, total, totalHits } = images;
-
-      this.setState({ hits, total, totalHits });
-    } catch (error) {
-      this.setState({ error });
-    } finally {
-      this.setState({ isLoading: false });
-    }
+  componentDidMount() {
+    this.fetchImages();
   }
 
-  handleSubmit = async (searchQuery) => {
+  fetchImages = async (searchQuery) => {
     this.setState({ isLoading: true });
     try {
       const images = await this.imageAPI.fetchImages(searchQuery);
@@ -54,7 +43,7 @@ export default class App extends Component {
     return (
       <>
         {error && <p>Whoops, something went wrong: {error.message}</p>}
-        <Searchbar onSubmit={this.handleSubmit} />
+        <Searchbar onSubmit={this.fetchImages} />
         {hits.length > 0 && <ImageGallery hits={hits} />}
         <Button />
         {isLoading && <Loader />}
