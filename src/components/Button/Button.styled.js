@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ButtonWrapper = styled.div`
   max-width: calc(100vw - 48px);
   margin-inline: auto;
-  padding-block: 30px;
+  padding-block: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
