@@ -17,7 +17,7 @@ export default class ImageAPI {
     baseURL: this.#BASE_URL,
   });
 
-  fetchImages = async (searchQuery) => {
+  fetchImages = async (searchQuery, page) => {
     const params = {
       params: {
         q: searchQuery ? searchQuery : "",
@@ -26,7 +26,7 @@ export default class ImageAPI {
         orientation: "horizontal",
         safesearch: false,
         per_page: 12,
-        page: 1,
+        page: page,
         timeout: 1000,
       },
     };

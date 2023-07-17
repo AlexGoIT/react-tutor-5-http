@@ -1,9 +1,9 @@
 import { ButtonWrapper, LoadMoreButton } from "./Button.styled";
 
-const Button = () => {
+const Button = ({ onLoadMore }) => {
   return (
     <ButtonWrapper>
-      <LoadMoreButton>Load More</LoadMoreButton>
+      <LoadMoreButton onClick={() => onLoadMore()}>Load More</LoadMoreButton>
     </ButtonWrapper>
   );
 };

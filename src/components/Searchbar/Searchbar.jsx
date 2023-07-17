@@ -12,18 +12,18 @@ import {
 
 export default class Searchbar extends Component {
   state = {
-    searchQuery: "",
+    value: "",
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state.searchQuery.toLowerCase().trim());
+    this.props.onSearchQuery(this.state.value.toLowerCase().trim());
 
-    this.setState({ searchQuery: "" });
+    this.setState({ value: "" });
   };
 
   handleChange = (e) => {
-    this.setState({ searchQuery: e.target.value });
+    this.setState({ value: e.target.value });
   };
 
   render() {
@@ -40,7 +40,7 @@ export default class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            value={this.state.searchQuery}
+            value={this.state.value}
             onChange={this.handleChange}
           />
         </SearchForm>
@@ -50,5 +50,5 @@ export default class Searchbar extends Component {
 }
 
 Searchbar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSearchQuery: PropTypes.func.isRequired,
 };
